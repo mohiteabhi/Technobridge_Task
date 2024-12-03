@@ -44,20 +44,38 @@ dropdownLinks.forEach(link => {
     });
 });
 
+
 //Sticky Sidebar
 document.addEventListener("DOMContentLoaded", function () {
     const sidebar = document.getElementById("sidebar");
     const heroSection = document.querySelector(".hero");
     const heroHeight = heroSection.offsetHeight;
 
-    window.addEventListener("scroll", function () {
+    function updateStickyBehavior() {
+        // Check if the screen width is greater than 768px (example breakpoint for mobile)
+        if (window.innerWidth > 768) {
+            window.addEventListener("scroll", handleScroll);
+        } else {
+            window.removeEventListener("scroll", handleScroll);
+            sidebar.classList.remove("sticky"); // Remove sticky class if it exists
+        }
+    }
+
+    function handleScroll() {
         if (window.scrollY > heroHeight) {
             sidebar.classList.add("sticky");
         } else {
             sidebar.classList.remove("sticky");
         }
-    });
+    }
+
+    // Update sticky behavior on page load
+    updateStickyBehavior();
+
+    // Update sticky behavior when resizing the window
+    window.addEventListener("resize", updateStickyBehavior);
 });
+
 
 //observing sidebar
 document.addEventListener("DOMContentLoaded", function () {
